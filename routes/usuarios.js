@@ -11,6 +11,8 @@ var Usuario = require("../models/usuario");
  *  Obtener Usuarios
  */
 app.get("/", (req, res) => {
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
     Usuario.find({}, "nombre email img role").exec((err, usuarios) => {
         if (err) {
             return res.status(500).json({
@@ -79,7 +81,7 @@ app.put("/:id", mdAutenticacion.verificaToken, (req, res) => {
 /*
  *  Crear un nuevo Usuario
  */
-app.post("/", mdAutenticacion.verificaToken, (req, res) => {
+app.post("/", (req, res) => {
     var body = req.body;
 
     var usuario = new Usuario({

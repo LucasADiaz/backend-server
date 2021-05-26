@@ -37,4 +37,4 @@ usarioSchema.plugin(uniqueValidator, {
     message: "El {PATH} debe de ser único",
 });
 
-module.exports = mongoose.model("Usuarios", usarioSchema);
+module.exports = mongoose.model("Usuario", usarioSchema);

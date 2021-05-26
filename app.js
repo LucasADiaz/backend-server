@@ -8,6 +8,20 @@ var app = express();
 const puerto = 3007;
 const DataBaseName = "hospitalDB";
 
+// CORS - HABILITAMOS PERMISOS CORS
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept",
+    );
+    res.header(
+        "Access-Control-Allow-Methods",
+        "PSOT, GET, PUT, DELETE, OPTIONS",
+    );
+    next();
+});
+
 // body parser / parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -16,6 +30,11 @@ app.use(bodyParser.json());
 var appRoutes = require("./routes/app");
 var usuarioRoutes = require("./routes/usuarios");
 var loginRoutes = require("./routes/login");
+var hospitalRoutes = require("./routes/hospital");
+var medicoRoutes = require("./routes/medicos");
+var busquedaRoutes = require("./routes/busqueda");
+var uploadRoutes = require("./routes/upload");
+var imagenesRoutes = require("./routes/imagen");
 
 // Conexión a la base de datos
 mongoose.connection.openUri(
@@ -30,7 +49,13 @@ mongoose.connection.openUri(
 
 // Rutas
 app.use("/usuario", usuarioRoutes);
+app.use("/hospital", hospitalRoutes);
+app.use("/medico", medicoRoutes);
 app.use("/login", loginRoutes);
+app.use("/busqueda", busquedaRoutes);
+app.use("/upload", uploadRoutes);
+app.use("/img", imagenesRoutes);
+
 app.use("/", appRoutes);
 
 // Escuchar peticiones

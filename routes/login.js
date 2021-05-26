@@ -42,7 +42,7 @@ app.post("/", (req, res) => {
         }); // 4 horas
         res.status(200).json({
             ok: true,
-            usaurio: usuarioBD,
+            usuario: usuarioBD,
             token,
             id: usuarioBD._id,
         });
